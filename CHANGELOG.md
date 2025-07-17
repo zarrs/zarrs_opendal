@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## Changed
-- **Breaking**: Bump `zarrs_storage` to 0.4.0
+- Move `zarrs_opendal` to a new repository: `zarrs/zarrs_opendal`
+
+## Fixed
+- Remove unused `blocking` feature from `opendal`
 
 ## [0.8.0] - 2025-07-17
 
@@ -79,15 +82,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
  - Split from the `storage` module of `zarrs` 0.17.0-dev
 
-[unreleased]: https://github.com/zarrs/zarrs/compare/zarrs_opendal-v0.8.0...HEAD
-[0.8.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.8.0
-[0.7.2]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.7.2
-[0.7.1]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.7.1
-[0.7.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.7.0
-[0.6.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.6.0
-[0.5.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.5.0
-[0.4.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.4.0
-[0.3.1]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.3.1
-[0.3.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.3.0
-[0.2.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.2.0
-[0.1.0]: https://github.com/LDeakin/zarrs/releases/tag/zarrs_opendal-v0.1.0
+[unreleased]: https://github.com/zarrs/zarrs_opendal/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.8.0
+[0.7.2]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.7.2
+[0.7.1]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.7.1
+[0.7.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.7.0
+[0.6.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.6.0
+[0.5.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.5.0
+[0.4.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.4.0
+[0.3.1]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.3.1
+[0.3.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.3.0
+[0.2.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.2.0
+[0.1.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.1.0

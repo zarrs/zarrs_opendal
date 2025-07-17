@@ -4,8 +4,8 @@
 [![opendal 0.53](https://img.shields.io/badge/opendal-0.53-blue)](https://crates.io/crates/opendal)
 [![zarrs_opendal documentation](https://docs.rs/zarrs_opendal/badge.svg)](https://docs.rs/zarrs_opendal)
 ![msrv](https://img.shields.io/crates/msrv/zarrs_opendal)
-[![build](https://github.com/zarrs/zarrs/actions/workflows/ci.yml/badge.svg)](https://github.com/zarrs/zarrs/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/zarrs/zarrs/graph/badge.svg?component=zarrs_opendal)](https://codecov.io/gh/zarrs/zarrs)
+[![build](https://github.com/zarrs/zarrs_opendal/actions/workflows/ci.yml/badge.svg)](https://github.com/zarrs/zarrs_opendal/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/zarrs/zarrs_opendal/graph/badge.svg)](https://codecov.io/gh/zarrs/zarrs_opendal)
 
 [`opendal`](https://crates.io/crates/opendal) store support for the [`zarrs`](https://crates.io/crates/zarrs) Rust crate.
 
