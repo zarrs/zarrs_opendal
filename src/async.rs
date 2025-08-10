@@ -1,6 +1,6 @@
 use futures::stream::TryStreamExt;
 use futures::{future, StreamExt};
-use opendal::Operator;
+use opendal::{Buffer, Operator};
 
 use zarrs_storage::{
     byte_range::{ByteRange, InvalidByteRangeError},
@@ -46,27 +46,31 @@ impl AsyncReadableStorageTraits for AsyncOpendalStore {
         )
     }
 
-    async fn get_partial_values_key(
+    async fn get_partial_values(
         &self,
         key: &StoreKey,
-        byte_ranges: &[ByteRange],
-    ) -> Result<Option<Vec<AsyncBytes>>, StorageError> {
+        byte_ranges: &mut (dyn Iterator<Item = ByteRange> + Send),
+    ) -> Result<Option<AsyncBytes>, StorageError> {
         // TODO: Get OpenDAL to return an error if byte range is OOB instead of panic, then don't need to query size
         let (size, reader) = futures::join!(self.size_key(key), self.operator.reader(key.as_str()));
         if let (Some(size), Some(reader)) = (size?, handle_result_notfound(reader)?) {
-            let mut byte_ranges_fetch = Vec::with_capacity(byte_ranges.len());
-            for byte_range in byte_ranges {
-                let byte_range_opendal = byte_range.to_range(size);
-                if byte_range_opendal.end > size {
-                    return Err(InvalidByteRangeError::new(*byte_range, size).into());
-                }
-                byte_ranges_fetch.push(byte_range_opendal);
-            }
+            let byte_ranges_fetch = byte_ranges
+                .map(|byte_range| {
+                    let byte_range_opendal = byte_range.to_range(size);
+                    if byte_range_opendal.end > size {
+                        Err(InvalidByteRangeError::new(byte_range, size).into())
+                    } else {
+                        Ok(byte_range_opendal)
+                    }
+                })
+                .collect::<Result<Vec<_>, StorageError>>()?;
+
             Ok(Some(
                 handle_result(reader.fetch(byte_ranges_fetch).await)?
                     .into_iter()
-                    .map(|buf| buf.to_bytes())
-                    .collect(),
+                    .flatten()
+                    .collect::<Buffer>()
+                    .to_bytes(),
             ))
         } else {
             Ok(None)
