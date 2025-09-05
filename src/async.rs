@@ -1,12 +1,11 @@
 use futures::stream::TryStreamExt;
 use futures::{future, StreamExt};
-use opendal::{Buffer, Operator};
+use opendal::Operator;
 
 use zarrs_storage::byte_range::ByteRangeIterator;
 use zarrs_storage::{
-    byte_range::{ByteRange, InvalidByteRangeError},
-    AsyncListableStorageTraits, AsyncReadableStorageTraits, AsyncWritableStorageTraits,
-    StorageError, StoreKey, StoreKeys, StoreKeysPrefixes, StorePrefix,
+    byte_range::InvalidByteRangeError, AsyncListableStorageTraits, AsyncReadableStorageTraits,
+    AsyncWritableStorageTraits, StorageError, StoreKey, StoreKeys, StoreKeysPrefixes, StorePrefix,
 };
 use zarrs_storage::{AsyncMaybeBytesIterator, Bytes, MaybeBytes, OffsetBytesIterator};
 
