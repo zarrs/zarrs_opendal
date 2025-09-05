@@ -2,12 +2,13 @@ use futures::stream::TryStreamExt;
 use futures::{future, StreamExt};
 use opendal::{Buffer, Operator};
 
+use zarrs_storage::byte_range::ByteRangeIterator;
 use zarrs_storage::{
     byte_range::{ByteRange, InvalidByteRangeError},
-    AsyncBytes, AsyncListableStorageTraits, AsyncReadableStorageTraits, AsyncWritableStorageTraits,
-    MaybeAsyncBytes, StorageError, StoreKey, StoreKeyOffsetValue, StoreKeys, StoreKeysPrefixes,
-    StorePrefix,
+    AsyncListableStorageTraits, AsyncReadableStorageTraits, AsyncWritableStorageTraits,
+    StorageError, StoreKey, StoreKeys, StoreKeysPrefixes, StorePrefix,
 };
+use zarrs_storage::{AsyncMaybeBytesIterator, Bytes, MaybeBytes, OffsetBytesIterator};
 
 use crate::{handle_result, handle_result_notfound};
 
@@ -37,7 +38,7 @@ impl AsyncOpendalStore {
 
 #[async_trait::async_trait]
 impl AsyncReadableStorageTraits for AsyncOpendalStore {
-    async fn get(&self, key: &StoreKey) -> Result<MaybeAsyncBytes, StorageError> {
+    async fn get(&self, key: &StoreKey) -> Result<MaybeBytes, StorageError> {
         handle_result_notfound(
             self.operator
                 .read(key.as_str())
@@ -46,12 +47,11 @@ impl AsyncReadableStorageTraits for AsyncOpendalStore {
         )
     }
 
-    async fn get_partial_values(
-        &self,
+    async fn get_partial_many<'a>(
+        &'a self,
         key: &StoreKey,
-        byte_ranges: &mut (dyn Iterator<Item = ByteRange> + Send),
-    ) -> Result<Option<AsyncBytes>, StorageError> {
-        // TODO: Get OpenDAL to return an error if byte range is OOB instead of panic, then don't need to query size
+        byte_ranges: ByteRangeIterator<'a>,
+    ) -> Result<AsyncMaybeBytesIterator<'a>, StorageError> {
         let (size, reader) = futures::join!(self.size_key(key), self.operator.reader(key.as_str()));
         if let (Some(size), Some(reader)) = (size?, handle_result_notfound(reader)?) {
             let byte_ranges_fetch = byte_ranges
@@ -65,12 +65,9 @@ impl AsyncReadableStorageTraits for AsyncOpendalStore {
                 })
                 .collect::<Result<Vec<_>, StorageError>>()?;
 
+            let result = handle_result(reader.fetch(byte_ranges_fetch).await)?;
             Ok(Some(
-                handle_result(reader.fetch(byte_ranges_fetch).await)?
-                    .into_iter()
-                    .flatten()
-                    .collect::<Buffer>()
-                    .to_bytes(),
+                futures::stream::iter(result.into_iter().map(|b| Ok(b.to_bytes()))).boxed(),
             ))
         } else {
             Ok(None)
@@ -87,16 +84,17 @@ impl AsyncReadableStorageTraits for AsyncOpendalStore {
 
 #[async_trait::async_trait]
 impl AsyncWritableStorageTraits for AsyncOpendalStore {
-    async fn set(&self, key: &StoreKey, value: AsyncBytes) -> Result<(), StorageError> {
+    async fn set(&self, key: &StoreKey, value: Bytes) -> Result<(), StorageError> {
         handle_result(self.operator.write(key.as_str(), value).await)?;
         Ok(())
     }
 
-    async fn set_partial_values(
-        &self,
-        key_offset_values: &[StoreKeyOffsetValue],
+    async fn set_partial_many<'a>(
+        &'a self,
+        key: &StoreKey,
+        offset_values: OffsetBytesIterator<'a>,
     ) -> Result<(), StorageError> {
-        zarrs_storage::async_store_set_partial_values(self, key_offset_values).await
+        zarrs_storage::async_store_set_partial_many(self, key, offset_values).await
     }
 
     async fn erase(&self, key: &StoreKey) -> Result<(), StorageError> {
