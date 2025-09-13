@@ -79,6 +79,10 @@ impl AsyncReadableStorageTraits for AsyncOpendalStore {
                 .map(|metadata| metadata.content_length()),
         )
     }
+
+    fn supports_get_partial(&self) -> bool {
+        true
+    }
 }
 
 #[async_trait::async_trait]
@@ -102,6 +106,10 @@ impl AsyncWritableStorageTraits for AsyncOpendalStore {
 
     async fn erase_prefix(&self, prefix: &StorePrefix) -> Result<(), StorageError> {
         handle_result(self.operator.remove_all(prefix.as_str()).await)
+    }
+
+    fn supports_set_partial(&self) -> bool {
+        false
     }
 }
 
