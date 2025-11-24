@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2025-11-24
+
 ## Changed
 - **Breaking**: Bump `opendal` to 0.55
 - **Breaking**: Bump MSRV to 1.85 (20 February, 2025)
@@ -96,7 +98,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
  - Split from the `storage` module of `zarrs` 0.17.0-dev
 
-[unreleased]: https://github.com/zarrs/zarrs_opendal/compare/v0.9.0...HEAD
+[unreleased]: https://github.com/zarrs/zarrs_opendal/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.10.0
 [0.9.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.9.0
 [0.8.1]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.8.1
 [0.8.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.8.0
