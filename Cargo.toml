@@ -1,6 +1,6 @@
 [package]
 name = "zarrs_opendal"
-version = "0.9.0"
+version = "0.10.0"
 authors = ["Lachlan Deakin <ljdgit@gmail.com>"]
 edition = "2021"
 rust-version = "1.80"
@@ -15,11 +15,11 @@ categories = ["encoding"]
 [dependencies]
 async-trait = "0.1.74"
 futures = "0.3.29"
-opendal = { version = ">=0.54,<0.55", default-features = false }
+opendal = { version = "0.55.0", default-features = false }
 zarrs_storage = { version = "0.4.0", features = ["async"] }
 
 [dev-dependencies]
-opendal = { version = "0.54.0", features = ["services-fs", "services-http"] }
+opendal = { version = "0.55.0", features = ["services-fs", "services-http"] }
 tempfile = "3"
 tokio = { version = "1.34.0", features = ["macros", "rt-multi-thread"] }
 zarrs_storage = { version = "0.4.0", features = ["async", "tests"] }
