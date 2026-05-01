@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - **Breaking**: Bump `opendal` to 0.56
+- **Breaking**: Bump MSRV to 1.86 (3 April, 2025)
 
 ## [0.10.0] - 2025-11-24
 
