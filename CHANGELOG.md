@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased](https://github.com/zarrs/zarrs_opendal/compare/v0.11.0...HEAD)
+
+## [0.11.0](https://github.com/zarrs/zarrs_opendal/releases/tag/v0.11.0) - 2026-05-02
 
 - **Breaking**: Bump `opendal` to 0.56
 - **Breaking**: Bump MSRV to 1.86 (3 April, 2025)
@@ -101,7 +103,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
  - Split from the `storage` module of `zarrs` 0.17.0-dev
 
-[unreleased]: https://github.com/zarrs/zarrs_opendal/compare/v0.10.0...HEAD
 [0.10.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.10.0
 [0.9.0]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.9.0
 [0.8.1]: https://github.com/zarrs/zarrs_opendal/releases/tag/v0.8.1
