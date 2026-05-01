@@ -105,7 +105,12 @@ impl AsyncWritableStorageTraits for AsyncOpendalStore {
     }
 
     async fn erase_prefix(&self, prefix: &StorePrefix) -> Result<(), StorageError> {
-        handle_result(self.operator.remove_all(prefix.as_str()).await)
+        handle_result(
+            self.operator
+                .delete_with(prefix.as_str())
+                .recursive(true)
+                .await,
+        )
     }
 
     fn supports_set_partial(&self) -> bool {
