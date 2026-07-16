@@ -6,7 +6,7 @@
 //! use zarrs_opendal::AsyncOpendalStore;
 //!
 //! let builder = opendal::services::Http::default().endpoint("http://...");
-//! let operator = opendal::Operator::new(builder)?.finish();
+//! let operator = opendal::Operator::new(builder)?;
 //! let store: AsyncReadableStorage = Arc::new(AsyncOpendalStore::new(operator));
 //! # Ok::<_, Box<dyn std::error::Error>>(())
 //! ```

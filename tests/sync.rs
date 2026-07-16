@@ -22,7 +22,7 @@ fn memory() -> Result<(), Box<dyn Error>> {
     let runtime = tokio::runtime::Runtime::new()?;
     let block_on = TokioBlockOn(runtime.handle().clone());
     let builder = opendal::services::Memory::default();
-    let op = Operator::new(builder)?.finish();
+    let op = Operator::new(builder)?;
     let store_async = Arc::new(AsyncOpendalStore::new(op));
     let store_sync = AsyncToSyncStorageAdapter::new(store_async, block_on);
     zarrs_storage::store_test::store_write(&store_sync)?;
@@ -38,7 +38,7 @@ fn filesystem() -> Result<(), Box<dyn Error>> {
     let block_on = TokioBlockOn(runtime.handle().clone());
     let path = tempfile::TempDir::new()?;
     let builder = opendal::services::Fs::default().root(&path.path().to_string_lossy());
-    let op = Operator::new(builder)?.finish();
+    let op = Operator::new(builder)?;
     let store_async = Arc::new(AsyncOpendalStore::new(op));
     let store_sync = AsyncToSyncStorageAdapter::new(store_async, block_on);
     zarrs_storage::store_test::store_write(&store_sync)?;

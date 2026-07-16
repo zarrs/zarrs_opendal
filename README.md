@@ -1,7 +1,7 @@
 # zarrs_opendal
 
 [![Latest Version](https://img.shields.io/crates/v/zarrs_opendal.svg)](https://crates.io/crates/zarrs_opendal)
-[![opendal 0.57](https://img.shields.io/badge/opendal-0.57-blue)](https://crates.io/crates/opendal)
+[![opendal 0.58](https://img.shields.io/badge/opendal-0.58-blue)](https://crates.io/crates/opendal)
 [![zarrs_opendal documentation](https://docs.rs/zarrs_opendal/badge.svg)](https://docs.rs/zarrs_opendal)
 ![msrv](https://img.shields.io/crates/msrv/zarrs_opendal)
 [![build](https://github.com/zarrs/zarrs_opendal/actions/workflows/ci.yml/badge.svg)](https://github.com/zarrs/zarrs_opendal/actions/workflows/ci.yml)
@@ -14,7 +14,7 @@ use zarrs_storage::AsyncReadableStorage;
 use zarrs_opendal::AsyncOpendalStore;
 
 let builder = opendal::services::Http::default().endpoint("http://...");
-let operator = opendal::Operator::new(builder)?.finish();
+let operator = opendal::Operator::new(builder)?;
 let store: AsyncReadableStorage = Arc::new(AsyncOpendalStore::new(operator));
 ```
 

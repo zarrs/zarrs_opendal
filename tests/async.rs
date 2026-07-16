@@ -24,7 +24,7 @@ impl AsyncToSyncBlockOn for TokioBlockOn {
 #[tokio::test]
 async fn memory() -> Result<(), Box<dyn Error>> {
     let builder = opendal::services::Memory::default();
-    let op = Operator::new(builder)?.finish();
+    let op = Operator::new(builder)?;
     let store = AsyncOpendalStore::new(op);
     zarrs_storage::store_test::async_store_write(&store).await?;
     zarrs_storage::store_test::async_store_read(&store).await?;
@@ -35,7 +35,7 @@ async fn memory() -> Result<(), Box<dyn Error>> {
 #[tokio::test]
 async fn memory_async_storage_adapters() -> Result<(), Box<dyn Error>> {
     let builder = opendal::services::Memory::default();
-    let op = Operator::new(builder)?.finish();
+    let op = Operator::new(builder)?;
     let store = Arc::new(AsyncOpendalStore::new(op));
     let store = Arc::new(StorageHandle::new(store));
     let store = Arc::new(PerformanceMetricsStorageAdapter::new(store));
@@ -56,7 +56,7 @@ async fn memory_async_storage_adapters() -> Result<(), Box<dyn Error>> {
 #[test]
 fn memory_sync() -> Result<(), Box<dyn Error>> {
     let builder = opendal::services::Memory::default();
-    let op = Operator::new(builder)?.finish();
+    let op = Operator::new(builder)?;
     let store = Arc::new(AsyncOpendalStore::new(op));
     let store =
         AsyncToSyncStorageAdapter::new(store, TokioBlockOn(tokio::runtime::Runtime::new()?));
@@ -71,7 +71,7 @@ fn memory_sync() -> Result<(), Box<dyn Error>> {
 async fn filesystem() -> Result<(), Box<dyn Error>> {
     let path = tempfile::TempDir::new()?;
     let builder = opendal::services::Fs::default().root(&path.path().to_string_lossy());
-    let op = Operator::new(builder)?.finish();
+    let op = Operator::new(builder)?;
     let store = AsyncOpendalStore::new(op);
     zarrs_storage::store_test::async_store_write(&store).await?;
     zarrs_storage::store_test::async_store_read(&store).await?;

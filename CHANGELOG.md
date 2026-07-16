@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/zarrs/zarrs_opendal/compare/v0.12.0...HEAD)
 
+### Changed
+- **Breaking**: Bump `opendal` to 0.58
+
 ## [0.12.0](https://github.com/zarrs/zarrs_opendal/releases/tag/v0.12.0) - 2026-06-01
 
 ### Changed
