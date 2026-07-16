@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **Breaking**: Bump `opendal` to 0.58
+- **Breaking**: Bump MSRV to 1.91 (30 October, 2025)
 
 ## [0.12.0](https://github.com/zarrs/zarrs_opendal/releases/tag/v0.12.0) - 2026-06-01
 
