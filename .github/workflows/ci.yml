@@ -43,7 +43,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: ["macos-14", "macos-latest"]
+        runner: ["macos-26-intel", "macos-latest"]
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
