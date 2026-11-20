@@ -35,7 +35,11 @@ impl AsyncOpendalStore {
     }
 }
 
-#[async_trait::async_trait]
+#[cfg_attr(not(target_arch = "wasm32"), async_trait::async_trait)]
+#[cfg_attr(
+    target_arch = "wasm32",
+    async_trait::async_trait(?Send)
+)]
 impl AsyncReadableStorageTraits for AsyncOpendalStore {
     async fn get(&self, key: &StoreKey) -> Result<MaybeBytes, StorageError> {
         handle_result_notfound(
@@ -85,7 +89,11 @@ impl AsyncReadableStorageTraits for AsyncOpendalStore {
     }
 }
 
-#[async_trait::async_trait]
+#[cfg_attr(not(target_arch = "wasm32"), async_trait::async_trait)]
+#[cfg_attr(
+    target_arch = "wasm32",
+    async_trait::async_trait(?Send)
+)]
 impl AsyncWritableStorageTraits for AsyncOpendalStore {
     async fn set(&self, key: &StoreKey, value: Bytes) -> Result<(), StorageError> {
         handle_result(self.operator.write(key.as_str(), value).await)?;
@@ -118,7 +126,11 @@ impl AsyncWritableStorageTraits for AsyncOpendalStore {
     }
 }
 
-#[async_trait::async_trait]
+#[cfg_attr(not(target_arch = "wasm32"), async_trait::async_trait)]
+#[cfg_attr(
+    target_arch = "wasm32",
+    async_trait::async_trait(?Send)
+)]
 impl AsyncListableStorageTraits for AsyncOpendalStore {
     async fn list(&self) -> Result<StoreKeys, StorageError> {
         self.list_prefix(&StorePrefix::root()).await
